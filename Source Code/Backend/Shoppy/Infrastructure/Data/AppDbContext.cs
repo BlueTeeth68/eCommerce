@@ -66,7 +66,7 @@ public class AppDbContext : DbContext
             .WithMany()
             .HasForeignKey(od => od.ProductTypeId)
             .OnDelete(DeleteBehavior.Restrict);
-        
+
         modelBuilder.Entity<OrderDetail>()
             .HasOne(od => od.Product)
             .WithMany()
@@ -77,6 +77,33 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Role>().HasData(
             new Role() { Id = 1, Name = Constant.AdminRole },
             new Role() { Id = 2, Name = Constant.UserRole }
+        );
+
+        modelBuilder.Entity<ProductType>().HasData(
+            new ProductType() { Id = 1, Name = Constant.ProductTypeBook },
+            new ProductType() { Id = 2, Name = Constant.ProductTypeClothing }
+        );
+
+        modelBuilder.Entity<PaymentType>().HasData(
+            new PaymentType() { Id = 1, Name = Constant.PaymentTypeCash },
+            new PaymentType() { Id = 2, Name = Constant.PaymentTypeMomo },
+            new PaymentType() { Id = 3, Name = Constant.PaymentTypeVnPay }
+        );
+
+        modelBuilder.Entity<TransactionType>().HasData(
+            new TransactionType() { Id = 1, Name = Constant.TransactionTypeOnlinePayment },
+            new TransactionType() { Id = 2, Name = Constant.TransactionTypeRefund }
+        );
+
+        modelBuilder.Entity<ClothingCategory>().HasData(
+            new ClothingCategory() { Id = 1, Name = Constant.ClothingCategoryTShirt },
+            new ClothingCategory() { Id = 2, Name = Constant.ClothingCategoryPant },
+            new ClothingCategory() { Id = 3, Name = Constant.ClothingCategorySneaker }
+        );
+
+        modelBuilder.Entity<BookCoverType>().HasData(
+            new BookCoverType() { Id = 1, Name = Constant.BookCoverTypeHardCover },
+            new BookCoverType() { Id = 2, Name = Constant.BookCoverTypePaperback }
         );
     }
 }

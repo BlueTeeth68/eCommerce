@@ -664,12 +664,59 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "BookCoverTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Hard cover" },
+                    { 2, "Paperback" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ClothingCategories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "T-shirt" },
+                    { 2, "Pant" },
+                    { 3, "Sneaker" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PaymentTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Cash" },
+                    { 2, "Momo" },
+                    { 3, "VnPay" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Book" },
+                    { 2, "Clothing" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
                     { 1, "Admin" },
                     { 2, "User" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TransactionTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Online Payment" },
+                    { 2, "Refund" }
                 });
 
             migrationBuilder.CreateIndex(

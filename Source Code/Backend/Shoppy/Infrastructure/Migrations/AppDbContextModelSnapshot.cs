@@ -259,6 +259,18 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("BookCoverTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Hard cover"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Paperback"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Cart", b =>
@@ -413,6 +425,23 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("ClothingCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "T-shirt"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Pant"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Sneaker"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Order", b =>
@@ -569,6 +598,23 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("PaymentTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Cash"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Momo"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "VnPay"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Product", b =>
@@ -776,6 +822,18 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("ProductTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Book"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Clothing"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Rating", b =>
@@ -995,6 +1053,18 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("TransactionTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Online Payment"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Refund"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
