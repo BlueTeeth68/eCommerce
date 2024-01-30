@@ -5,9 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Domain.Entities;
 
 [Index(nameof(Name), IsUnique = true)]
-public class BookCategory : BaseEntity
+public class BookCoverType : BaseEntity
 {
     [StringLength(50)] public string Name { get; set; } = null!;
-
-    public virtual ICollection<Book>? Books { get; set; }
 }

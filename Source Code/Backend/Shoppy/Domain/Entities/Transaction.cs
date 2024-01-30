@@ -10,10 +10,6 @@ public class Transaction : BaseEntity
 {
     [StringLength(250)] public string? Note { get; set; }
 
-    [Column(TypeName = "tinyint")] public TransactionType Type { get; set; } = TransactionType.Purchase;
-
-    [Column(TypeName = "tinyint")] public PaymentType Method { get; set; }
-
     [StringLength(250)] public string? SourceAccount { get; set; }
 
     [StringLength(250)] public string? DestinationAccount { get; set; }
@@ -27,7 +23,19 @@ public class Transaction : BaseEntity
     [Precision(2)]
     public DateTime Date { get; set; } = DateTime.UtcNow;
 
+    public int TypeId { get; set; }
+
+    public TransactionType Type { get; set; } = null!;
+
+    public int PaymentTypeId { get; set; }
+
+    public PaymentType PaymentType { get; set; } = null!;
+
     public int? OrderId { get; set; }
 
     public virtual Order? Order { get; set; }
+
+    public int UserId { get; set; }
+
+    public User User { get; set; } = null!;
 }

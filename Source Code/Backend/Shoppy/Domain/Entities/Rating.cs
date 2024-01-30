@@ -32,5 +32,9 @@ public class Rating : BaseEntity
 
     public virtual ProductOption ProductOption { get; set; } = null!;
 
+    public int ProductTypeId { get; set; }
+
+    public virtual ProductType ProductType { get; set; } = null!;
+
     public virtual ICollection<RatingResource> RatingResources { get; set; } = new List<RatingResource>();
 }

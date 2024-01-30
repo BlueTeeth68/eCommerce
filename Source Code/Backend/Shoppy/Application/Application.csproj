@@ -10,13 +10,4 @@
       <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Dtos\Request\" />
-      <Folder Include="Dtos\Response\" />
-      <Folder Include="Interfaces\IRepositories\" />
-      <Folder Include="Interfaces\IServices\" />
-      <Folder Include="Mappers\" />
-      <Folder Include="Services\" />
-    </ItemGroup>
-
 </Project>

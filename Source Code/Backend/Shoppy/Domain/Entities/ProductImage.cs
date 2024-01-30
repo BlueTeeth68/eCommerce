@@ -7,6 +7,7 @@ namespace Domain.Entities;
 [Index(nameof(Order), nameof(ProductId), IsUnique = true)]
 public class ProductImage : BaseEntity
 {
+    [StringLength(250)]
     public string? Title { get; set; }
 
     [StringLength(250)] public string Url { get; set; } = null!;

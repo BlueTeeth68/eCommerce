@@ -1,7 +1,5 @@
-﻿using System.Reflection.Metadata;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using Constant = Application.Configurations.Constant;
 
 namespace Infrastructure.Data;
@@ -12,15 +10,21 @@ public class AppDbContext : DbContext
     {
     }
 
+    public virtual DbSet<Account> Accounts { get; set; }
+    public virtual DbSet<Admin> Admins { get; set; }
     public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<Address> Addresses { get; set; }
     public virtual DbSet<Role> Roles { get; set; }
     public virtual DbSet<Transaction> Transactions { get; set; }
+    public virtual DbSet<TransactionType> TransactionTypes { get; set; }
     public virtual DbSet<RatingResource> RatingResources { get; set; }
     public virtual DbSet<Rating> Ratings { get; set; }
     public virtual DbSet<ProductOption> ProductOptions { get; set; }
     public virtual DbSet<ProductImage> ProductImages { get; set; }
     public virtual DbSet<Product> Products { get; set; }
+    public virtual DbSet<ProductType> ProductTypes { get; set; }
     public virtual DbSet<Payment> Payments { get; set; }
+    public virtual DbSet<PaymentType> PaymentTypes { get; set; }
     public virtual DbSet<OrderDetail> OrderDetails { get; set; }
     public virtual DbSet<Order> Orders { get; set; }
     public virtual DbSet<ClothingCategory> ClothingCategories { get; set; }
@@ -28,8 +32,8 @@ public class AppDbContext : DbContext
     public virtual DbSet<CartDetail> CartDetails { get; set; }
     public virtual DbSet<Cart> Carts { get; set; }
     public virtual DbSet<BookCategory> BookCategories { get; set; }
+    public virtual DbSet<BookCoverType> BookCoverTypes { get; set; }
     public virtual DbSet<Book> Books { get; set; }
-    public virtual DbSet<Address> Addresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -55,6 +59,18 @@ public class AppDbContext : DbContext
             .HasOne(r => r.ProductOption)
             .WithMany()
             .HasForeignKey(r => r.ProductOptionId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<OrderDetail>()
+            .HasOne(od => od.ProductType)
+            .WithMany()
+            .HasForeignKey(od => od.ProductTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<OrderDetail>()
+            .HasOne(od => od.Product)
+            .WithMany()
+            .HasForeignKey(od => od.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
 
         //data seeding

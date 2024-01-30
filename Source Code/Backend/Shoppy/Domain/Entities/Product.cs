@@ -8,6 +8,7 @@ namespace Domain.Entities;
 
 public class Product : BaseEntity
 {
+    [StringLength(500)]
     public string Name { get; set; } = null!;
 
     [StringLength(5000)] public string? Description { get; set; }
@@ -41,13 +42,13 @@ public class Product : BaseEntity
 
     public int CreatedById { get; set; }
 
-    public virtual User CreatedBy { get; set; } = null!;
+    public virtual Admin CreatedBy { get; set; } = null!;
+    
+    public int ProductTypeId { get; set; }
+
+    public ProductType ProductType { get; set; } = null!;
 
     public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
-    
-    public virtual Book? Book { get; set; }
-
-    public virtual Clothing? Clothing { get; set; }
 
     public virtual ICollection<ProductOption> ProductOptions { get; set; } = new List<ProductOption>();
 }

@@ -28,4 +28,8 @@ public class CartDetail : BaseEntity
     public int ProductOptionId { get; set; }
 
     public virtual ProductOption ProductOption { get; set; } = null!;
+
+    public int ProductTypeId { get; set; }
+
+    public virtual ProductType ProductType { get; set; } = null!;
 }

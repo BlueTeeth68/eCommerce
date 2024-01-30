@@ -7,8 +7,7 @@ public class BaseEntity
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
-    
-    [Timestamp]
-    public byte[] RowVersion { get; set; }
+    public int Id { get; init; }
+
+    [Timestamp] public byte[] RowVersion { get; set; }
 }

@@ -22,7 +22,7 @@ public class Clothing : BaseEntity
 
     public virtual Product Product { get; set; } = null!;
 
-    public int? CategoryId { get; set; }
+    public int CategoryId { get; set; }
 
-    public virtual ClothingCategory? Category { get; set; }
+    public virtual ClothingCategory Category { get; set; } = null!;
 }

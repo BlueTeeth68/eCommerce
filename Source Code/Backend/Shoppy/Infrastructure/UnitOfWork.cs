@@ -1,4 +1,5 @@
 ﻿using Application;
+using Application.Interfaces.IRepositories;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
@@ -11,11 +12,14 @@ public class UnitOfWork:IUnitOfWork
     private IDbContextTransaction? _transaction;
     private readonly ILogger<UnitOfWork> _logger;
 
-    public UnitOfWork(AppDbContext context, ILogger<UnitOfWork> logger)
+    public UnitOfWork(AppDbContext context, ILogger<UnitOfWork> logger, IUserRepository userRepository)
     {
         _context = context;
         _logger = logger;
+        UserRepository = userRepository;
     }
+
+    public IUserRepository UserRepository { get; set; }
 
     public async Task<int> SaveChangeAsync()
     {

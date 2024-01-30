@@ -17,6 +17,7 @@ public class ProductOption : BaseEntity
 
     [StringLength(10)] public string? Size { get; set; }
 
+    [StringLength(50)]
     public string? Color { get; set; }
 
     [StringLength(50)] public string? Version { get; set; }
