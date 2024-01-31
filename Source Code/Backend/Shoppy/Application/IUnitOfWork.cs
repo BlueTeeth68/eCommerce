@@ -5,7 +5,10 @@ namespace Application;
 public interface IUnitOfWork : IDisposable
 {
     public IUserRepository UserRepository { get; set; }
-    
+
+    public IAccountRepository AccountRepository { get; set; }
+    public IAdminRepository AdminRepository { get; set; }
+
     public Task<int> SaveChangeAsync();
 
     public Task BeginTransactionAsync();

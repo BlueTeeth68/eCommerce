@@ -7,12 +7,8 @@ public class LoginUserDto
     public string FullName { get; set; } = null!;
 
     public string Email { get; set; } = null!;
-
-    public string? FacebookId { get; set; }
-
-    public string? PhoneNumber { get; set; }
-
-    public string? Gender { get; set; } = null!;
+    
+    public string? PictureUrl { get; set; } = null!;
 
     public string Role { get; set; } = null!;
 

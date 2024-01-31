@@ -6,20 +6,25 @@ using Microsoft.Extensions.Logging;
 
 namespace Infrastructure;
 
-public class UnitOfWork:IUnitOfWork
+public class UnitOfWork : IUnitOfWork
 {
     private readonly AppDbContext _context;
     private IDbContextTransaction? _transaction;
     private readonly ILogger<UnitOfWork> _logger;
 
-    public UnitOfWork(AppDbContext context, ILogger<UnitOfWork> logger, IUserRepository userRepository)
+    public UnitOfWork(AppDbContext context, ILogger<UnitOfWork> logger, IUserRepository userRepository,
+        IAccountRepository accountRepository, IAdminRepository adminRepository)
     {
         _context = context;
         _logger = logger;
         UserRepository = userRepository;
+        AccountRepository = accountRepository;
+        AdminRepository = adminRepository;
     }
 
     public IUserRepository UserRepository { get; set; }
+    public IAccountRepository AccountRepository { get; set; }
+    public IAdminRepository AdminRepository { get; set; }
 
     public async Task<int> SaveChangeAsync()
     {
@@ -61,7 +66,7 @@ public class UnitOfWork:IUnitOfWork
         }
     }
 
-    private bool _disposed = false;
+    private bool _disposed;
 
     protected virtual void Dispose(bool disposing)
     {

@@ -4,15 +4,12 @@ namespace Application.Dtos.Request.User;
 
 public record RegisterDto
 {
-    [Required]
-    [DataType(DataType.Date)]
-    [StringLength(50)]
-    public string FullName { get; init; } = null!;
+    [Required] [StringLength(50)] public string FullName { get; init; } = null!;
 
     [Required]
-    [DataType(DataType.Date)]
+    [DataType(DataType.EmailAddress)]
     [StringLength(50)]
-    public string Gmail { get; init; } = null!;
+    public string Email { get; init; } = null!;
 
     [Required]
     [StringLength(4)]
