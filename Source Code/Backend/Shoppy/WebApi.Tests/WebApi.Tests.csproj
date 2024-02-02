@@ -23,11 +23,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
+      <ProjectReference Include="..\WebAPI\WebAPI.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\WebAPI\WebAPI.csproj" />
+      <Folder Include="Controllers\" />
     </ItemGroup>
 
 </Project>

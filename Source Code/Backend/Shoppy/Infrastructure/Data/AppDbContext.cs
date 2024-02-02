@@ -73,6 +73,12 @@ public class AppDbContext : DbContext
             .HasForeignKey(od => od.ProductId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        modelBuilder.Entity<OrderDetail>()
+            .HasOne(od => od.ProductOption)
+            .WithMany()
+            .HasForeignKey(od => od.ProductOptionId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         //data seeding
         modelBuilder.Entity<Role>().HasData(
             new Role() { Id = 1, Name = Constant.AdminRole },

@@ -17,6 +17,12 @@ public class Order : BaseEntity
     [Precision(2)]
     public DateTime Date { get; set; } = DateTime.UtcNow;
 
+    [StringLength(11)]
+    public string PhoneNumber { get; set; } = null!;
+
+    [StringLength(250)]
+    public string AddressDetail { get; set; } = null!;
+
     public int UserId { get; set; }
 
     public virtual User User { get; set; } = null!;

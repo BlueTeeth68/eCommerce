@@ -10,18 +10,20 @@ namespace Domain.Entities;
 [Index(nameof(PhoneNumber), IsUnique = true)]
 public class User : BaseEntity
 {
+    [StringLength(100)] public string? FacebookId { get; set; }
 
-    [StringLength(100)]
-    public string? FacebookId { get; set; }
-
-    [StringLength(20)]
-    public string? PhoneNumber { get; set; }
+    [StringLength(20)] public string? PhoneNumber { get; set; }
 
     [Column(TypeName = "tinyint")] public Gender? Gender { get; set; }
 
     public int CartId { get; set; }
 
     public virtual Cart Cart { get; set; } = null!;
+
+    public int AccountId { get; set; }
+
+    public virtual Account Account { get; set; } = null!;
+
 
     public virtual ICollection<Address>? Addresses { get; set; } = new List<Address>();
 

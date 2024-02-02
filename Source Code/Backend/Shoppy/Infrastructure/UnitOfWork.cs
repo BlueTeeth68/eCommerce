@@ -13,18 +13,20 @@ public class UnitOfWork : IUnitOfWork
     private readonly ILogger<UnitOfWork> _logger;
 
     public UnitOfWork(AppDbContext context, ILogger<UnitOfWork> logger, IUserRepository userRepository,
-        IAccountRepository accountRepository, IAdminRepository adminRepository)
+        IAccountRepository accountRepository, IAdminRepository adminRepository, IRoleRepository roleRepository)
     {
         _context = context;
         _logger = logger;
         UserRepository = userRepository;
         AccountRepository = accountRepository;
         AdminRepository = adminRepository;
+        RoleRepository = roleRepository;
     }
 
     public IUserRepository UserRepository { get; set; }
     public IAccountRepository AccountRepository { get; set; }
     public IAdminRepository AdminRepository { get; set; }
+    public IRoleRepository RoleRepository { get; set; }
 
     public async Task<int> SaveChangeAsync()
     {

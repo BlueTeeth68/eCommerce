@@ -97,9 +97,9 @@ public static class DependencyInjection
                 {
                     Title = "Kid Pro API", Version = "v1", Description = "ASP NET core API for Kid Pro project."
                 });
-            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-            option.IncludeXmlComments(xmlPath);
+            // var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            // var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            // option.IncludeXmlComments(xmlPath);
             option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,

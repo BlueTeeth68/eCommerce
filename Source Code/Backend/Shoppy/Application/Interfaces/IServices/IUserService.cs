@@ -5,5 +5,7 @@ namespace Application.Interfaces.IServices;
 
 public interface IUserService
 {
-    LoginUserDto RegisterAsync(RegisterDto dto);
+    Task<LoginUserDto> RegisterAsync(RegisterDto dto);
+
+    Task<LoginUserDto> LoginAsync(LoginDto request);
 }
