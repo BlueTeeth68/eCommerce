@@ -23,6 +23,8 @@
     </developers>
     <modules>
         <module>jpa</module>
+        <module>domain</module>
+        <module>domain</module>
     </modules>
     <scm>
         <connection/>
