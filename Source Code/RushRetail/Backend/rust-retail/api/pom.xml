@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.ecommerce.rustretail</groupId>
     <artifactId>api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>api</name>
     <description>api</description>
     <url/>
@@ -48,6 +48,11 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ecommerce.rustretail</groupId>
+            <artifactId>jpa</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 

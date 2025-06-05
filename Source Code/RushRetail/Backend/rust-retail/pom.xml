@@ -8,9 +8,9 @@
         <version>3.4.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.rust-retail</groupId>
+    <groupId>com.ecommerce.rustretail</groupId>
     <artifactId>rust-retail</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>pom</packaging>
     <name>rust-retail</name>
     <description>rust-retail</description>
@@ -22,9 +22,9 @@
         <developer/>
     </developers>
     <modules>
+        <module>domain</module>
         <module>jpa</module>
-        <module>domain</module>
-        <module>domain</module>
+        <module>infrastructure</module>
     </modules>
     <scm>
         <connection/>

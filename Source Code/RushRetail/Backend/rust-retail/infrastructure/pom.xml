@@ -8,7 +8,15 @@
         <artifactId>rust-retail</artifactId>
         <version>1.0</version>
     </parent>
-    <artifactId>domain</artifactId>
+
+    <artifactId>infrastructure</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.ecommerce.rustretail</groupId>
+            <artifactId>jpa</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
