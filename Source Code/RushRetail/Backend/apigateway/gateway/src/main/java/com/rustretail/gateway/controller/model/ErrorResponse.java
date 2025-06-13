@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
@@ -28,7 +27,7 @@ public class ErrorResponse implements Serializable {
     @JsonProperty("detail")
     private String detail;
     @JsonProperty("date")
-    private Instant date = Instant.now();
+    private Instant timestamp = Instant.now();
 
     @JsonProperty("errors")
     private List<ErrorDetail> errorDetails;

@@ -11,6 +11,9 @@ public class HealthCheck {
 
     @GetMapping()
     public ApiResponse<String> healthCheck() {
-        return ApiResponse.<String>builder().build();
+        return ApiResponse.<String>builder()
+                .data("OK")
+                .success(true)
+                .build();
     }
 }

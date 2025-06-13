@@ -1,11 +1,11 @@
 package com.rustretail.gateway.controller;
 
+import com.rustretail.gateway.controller.model.ApiResponse;
 import com.rustretail.gateway.controller.model.ErrorResponse;
 import exception.BadRequestException;
 import exception.DataAlreadyExistException;
 import exception.ForbiddenException;
 import exception.UnauthorizeException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -47,16 +47,18 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
      * @return a {@code ResponseEntity} containing error details with an HTTP status of 403 (Forbidden)
      */
     @ExceptionHandler({ForbiddenException.class})
-    public ResponseEntity<Object> handleAccessDeniedException(
+    public ApiResponse<Object> handleAccessDeniedException(
             ForbiddenException ex, NativeWebRequest request) {
         ErrorResponse error = ErrorResponse.builder()
                 .title("Access denied")
-                .date(Instant.now())
+                .timestamp(Instant.now())
                 .detail("You don't have permission to access this resource")
                 .status(HttpStatus.FORBIDDEN)
                 .build();
-        return new ResponseEntity<>(
-                error, new HttpHeaders(), error.getStatus());
+        return ApiResponse.builder()
+                .success(false)
+                .error(error)
+                .build();
     }
 
     /**
@@ -69,16 +71,18 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
      *         including a "Data already exist" message and an HTTP status code of {@link HttpStatus#CONFLICT}
      */
     @ExceptionHandler({DataAlreadyExistException.class})
-    public ResponseEntity<Object> handleDataAlreadyExistsException(
+    public ApiResponse<Object> handleDataAlreadyExistsException(
             RuntimeException ex, NativeWebRequest request) {
         ErrorResponse error = ErrorResponse.builder()
                 .title("Data already exist")
-                .date(Instant.now())
-                .detail("Data already exist")
+                .timestamp(Instant.now())
+                .detail(ex.getMessage())
                 .status(HttpStatus.CONFLICT)
                 .build();
-        return new ResponseEntity<>(
-                error, new HttpHeaders(), error.getStatus());
+        return ApiResponse.builder()
+                .success(false)
+                .error(error)
+                .build();
     }
 
     /**
@@ -90,16 +94,19 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
      * @param request the {@code NativeWebRequest} related to the exception occurrence
      * @return a {@code ResponseEntity} containing an*/
     @ExceptionHandler({BadRequestException.class})
-    public ResponseEntity<Object> handleBadRequestException(
+    public ApiResponse<Object> handleBadRequestException(
             RuntimeException ex, NativeWebRequest request) {
         ErrorResponse error = ErrorResponse.builder()
                 .title("Bad request")
-                .date(Instant.now())
-                .detail("Bad request")
+                .timestamp(Instant.now())
+                .detail(ex.getMessage())
                 .status(HttpStatus.BAD_REQUEST)
                 .build();
-        return new ResponseEntity<>(
-                error, new HttpHeaders(), error.getStatus());
+
+        return ApiResponse.builder()
+                .success(false)
+                .error(error)
+                .build();
     }
 
     /**
@@ -109,15 +116,18 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
      * @param ex the exception thrown when an unauthorized access attempt is detected
      * @param request the web request during which the exception*/
     @ExceptionHandler({UnauthorizeException.class})
-    public ResponseEntity<Object> handleAuthenticationException(
+    public ApiResponse<Object> handleAuthenticationException(
             RuntimeException ex, NativeWebRequest request) {
         ErrorResponse error = ErrorResponse.builder()
                 .title("Unauthorize")
-                .date(Instant.now())
-                .detail("Unauthorize")
+                .timestamp(Instant.now())
+                .detail(ex.getMessage())
                 .status(HttpStatus.UNAUTHORIZED)
                 .build();
-        return new ResponseEntity<>(
-                error, new HttpHeaders(), error.getStatus());
+
+        return ApiResponse.builder()
+                .success(false)
+                .error(error)
+                .build();
     }
 }
