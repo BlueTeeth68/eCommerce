@@ -32,8 +32,9 @@ public class GlobalExceptionController {
         ErrorResponse error = ErrorResponse.builder()
                 .title("Access denied")
                 .timestamp(Instant.now())
-                .detail("You don't have permission to access this resource")
+                .detail(ex.getMessage())
                 .status(HttpStatus.FORBIDDEN)
+                .type(request.getContextPath())
                 .build();
         return Mono.just(ApiResponse.builder()
                 .success(false)
@@ -55,6 +56,7 @@ public class GlobalExceptionController {
             RuntimeException ex, NativeWebRequest request) {
         ErrorResponse error = ErrorResponse.builder()
                 .title("Data already exist")
+                .type(request.getContextPath())
                 .timestamp(Instant.now())
                 .detail(ex.getMessage())
                 .status(HttpStatus.CONFLICT)
@@ -78,6 +80,7 @@ public class GlobalExceptionController {
             RuntimeException ex, NativeWebRequest request) {
         ErrorResponse error = ErrorResponse.builder()
                 .title("Bad request")
+                .type(request.getContextPath())
                 .timestamp(Instant.now())
                 .detail(ex.getMessage())
                 .status(HttpStatus.BAD_REQUEST)
@@ -100,6 +103,7 @@ public class GlobalExceptionController {
             RuntimeException ex, NativeWebRequest request) {
         ErrorResponse error = ErrorResponse.builder()
                 .title("Unauthorize")
+                .type(request.getContextPath())
                 .timestamp(Instant.now())
                 .detail(ex.getMessage())
                 .status(HttpStatus.UNAUTHORIZED)
