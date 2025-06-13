@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8008
 
 spring:
   application:
@@ -12,9 +12,60 @@ spring:
       database: 0
       timeout: 60000
 
+  http:
+    codec:
+      max-in-memory-size: 16MB  # Maximum buffer size for data
+
+  webflux:
+    base-path: /  # Base path for all endpoints
+
   cloud:
     gateway:
       redis-rate-limiter: # rate limiter config
         replenish-rate: 4
         burst-capability: 80
         requested-tokens: 1
+
+# Resilience4j Circuit Breaker Configuration
+resilience4j:
+  circuitbreaker:
+    instances:
+      identityServiceCircuitBreaker:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        failureRateThreshold: 40
+        slowCallRateThreshold: 40
+        slowCallDurationThreshold: 1s
+      userServiceCircuitBreaker:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5s
+        failureRateThreshold: 40
+        slowCallRateThreshold: 40
+        slowCallDurationThreshold: 1s
+  timelimiter:
+    instances:
+      identityServiceCircuitBreaker:
+        timeoutDuration: 2s
+      userServiceCircuitBreaker:
+        timeoutDuration: 2s
+
+# Actuator endpoints for monitoring circuit breakers
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,circuitbreakers
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true

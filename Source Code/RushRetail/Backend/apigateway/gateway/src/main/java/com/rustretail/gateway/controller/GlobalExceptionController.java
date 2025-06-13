@@ -11,32 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import reactor.core.publisher.Mono;
 
 import java.time.Instant;
 
-/**
- * This class serves as a global exception handler for handling and customizing the response for
- * various exceptions thrown by the application. It extends {@link ResponseEntityExceptionHandler}
- * to leverage its capabilities and provides custom handling for specific exception types.
- *
- * The class is annotated with {@code @ControllerAdvice} to define global exception handling
- * behavior for all controllers in the application.
- *
- * Each exception handler method returns a {@link ResponseEntity} containing an {@link ErrorResponse}
- * object with appropriate details for the error.
- *
- * Exception types handled in this class:
- * 1. {@code ForbiddenException} - Access denied errors.
- * 2. {@code DataAlreadyExistException} - Conflicting data already exists errors.
- * 3. {@code BadRequestException} - Bad request errors.
- * 4. {@code UnauthorizeException} - Unauthorized access errors.
- *
- * The {@link ErrorResponse} encapsulates the error details such as title, timestamp, status code,
- * and a descriptive message.
- */
 @ControllerAdvice
-public class GlobalExceptionController extends ResponseEntityExceptionHandler {
+public class GlobalExceptionController {
 
     /**
      * Handles exceptions of type {@code ForbiddenException} and constructs a custom
@@ -47,7 +27,7 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
      * @return a {@code ResponseEntity} containing error details with an HTTP status of 403 (Forbidden)
      */
     @ExceptionHandler({ForbiddenException.class})
-    public ApiResponse<Object> handleAccessDeniedException(
+    public Mono<ApiResponse<Object>> handleAccessDeniedException(
             ForbiddenException ex, NativeWebRequest request) {
         ErrorResponse error = ErrorResponse.builder()
                 .title("Access denied")
@@ -55,10 +35,10 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                 .detail("You don't have permission to access this resource")
                 .status(HttpStatus.FORBIDDEN)
                 .build();
-        return ApiResponse.builder()
+        return Mono.just(ApiResponse.builder()
                 .success(false)
                 .error(error)
-                .build();
+                .build());
     }
 
     /**
@@ -71,7 +51,7 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
      *         including a "Data already exist" message and an HTTP status code of {@link HttpStatus#CONFLICT}
      */
     @ExceptionHandler({DataAlreadyExistException.class})
-    public ApiResponse<Object> handleDataAlreadyExistsException(
+    public Mono<ApiResponse<Object>> handleDataAlreadyExistsException(
             RuntimeException ex, NativeWebRequest request) {
         ErrorResponse error = ErrorResponse.builder()
                 .title("Data already exist")
@@ -79,10 +59,10 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                 .detail(ex.getMessage())
                 .status(HttpStatus.CONFLICT)
                 .build();
-        return ApiResponse.builder()
+        return Mono.just(ApiResponse.builder()
                 .success(false)
                 .error(error)
-                .build();
+                .build());
     }
 
     /**
@@ -94,7 +74,7 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
      * @param request the {@code NativeWebRequest} related to the exception occurrence
      * @return a {@code ResponseEntity} containing an*/
     @ExceptionHandler({BadRequestException.class})
-    public ApiResponse<Object> handleBadRequestException(
+    public Mono<ApiResponse<Object>> handleBadRequestException(
             RuntimeException ex, NativeWebRequest request) {
         ErrorResponse error = ErrorResponse.builder()
                 .title("Bad request")
@@ -103,10 +83,10 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                 .status(HttpStatus.BAD_REQUEST)
                 .build();
 
-        return ApiResponse.builder()
+        return Mono.just(ApiResponse.builder()
                 .success(false)
                 .error(error)
-                .build();
+                .build());
     }
 
     /**
@@ -116,7 +96,7 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
      * @param ex the exception thrown when an unauthorized access attempt is detected
      * @param request the web request during which the exception*/
     @ExceptionHandler({UnauthorizeException.class})
-    public ApiResponse<Object> handleAuthenticationException(
+    public Mono<ApiResponse<Object>> handleAuthenticationException(
             RuntimeException ex, NativeWebRequest request) {
         ErrorResponse error = ErrorResponse.builder()
                 .title("Unauthorize")
@@ -125,9 +105,9 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
                 .status(HttpStatus.UNAUTHORIZED)
                 .build();
 
-        return ApiResponse.builder()
+        return Mono.just(ApiResponse.builder()
                 .success(false)
                 .error(error)
-                .build();
+                .build());
     }
 }
