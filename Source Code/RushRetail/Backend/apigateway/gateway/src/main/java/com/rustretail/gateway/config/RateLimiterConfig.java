@@ -1,5 +1,6 @@
 package com.rustretail.gateway.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
 import org.springframework.context.annotation.Bean;
@@ -11,9 +12,12 @@ import java.util.Objects;
 @Configuration
 public class RateLimiterConfig {
 
-    private static final int DEFAULT_REPLENISH_RATE = 10;
-    private static final int DEFAULT_BURST_CAPACITY = 20;
-    private static final int DEFAULT_REQUEST_CAPACITY = 1;
+    @Value("${spring.cloud.gateway.redis-rate-limiter.replenish-rate}")
+    private int replenishRate;
+    @Value("${spring.cloud.gateway.redis-rate-limiter.burst-capability}")
+    private int burstCapacity;
+    @Value("${spring.cloud.gateway.redis-rate-limiter.requested-tokens}")
+    private int requestedTokens;
 
     /**
      * Provides a KeyResolver bean that extracts the client's IP address from the incoming
@@ -39,6 +43,6 @@ public class RateLimiterConfig {
      */
     @Bean
     public RedisRateLimiter redisRateLimiter() {
-        return new RedisRateLimiter(DEFAULT_REPLENISH_RATE, DEFAULT_BURST_CAPACITY, DEFAULT_REQUEST_CAPACITY);
+        return new RedisRateLimiter(replenishRate, burstCapacity, requestedTokens);
     }
 }
