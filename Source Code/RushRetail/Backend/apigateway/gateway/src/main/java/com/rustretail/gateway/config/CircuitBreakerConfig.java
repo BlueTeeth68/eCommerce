@@ -59,13 +59,8 @@ public class CircuitBreakerConfig {
                         .build()), "identityServiceCircuitBreaker");
     }
 
-    /**
-     * Configures specific circuit breaker settings for the user service.
-     * 
-     * @return a customizer for the user service circuit breaker
-     */
     @Bean
-    public Customizer<ReactiveResilience4JCircuitBreakerFactory> userServiceCustomizer() {
+    public Customizer<ReactiveResilience4JCircuitBreakerFactory> ecomServiceCustomizer() {
         return factory -> factory.configure(builder -> builder
                 .circuitBreakerConfig(io.github.resilience4j.circuitbreaker.CircuitBreakerConfig.custom()
                         .slidingWindowSize(10)
@@ -77,6 +72,6 @@ public class CircuitBreakerConfig {
                         .build())
                 .timeLimiterConfig(TimeLimiterConfig.custom()
                         .timeoutDuration(Duration.ofSeconds(2))
-                        .build()), "userServiceCircuitBreaker");
+                        .build()), "ecomServiceCircuitBreaker");
     }
 }

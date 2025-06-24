@@ -38,10 +38,12 @@ public class GatewayConfig {
                         .uri("lb://identity-service")
                 )
                 .route(r -> r
-                        .path("api/{version}/user/**")
+                        .path("/api/{version}/user/**")
+                        .or()
+                        .path("/api/{version}/users/**")
                         .filters(f -> f
                                 .circuitBreaker(config -> config
-                                        .setName("userServiceCircuitBreaker")
+                                        .setName("ecomServiceCircuitBreaker")
                                         .setFallbackUri("forward:/fallback/users"))
                                 .rewritePath("/api/users/(?<segment>.*)", "/api/${version}/users/${segment}")
                                 .requestRateLimiter(config -> config
@@ -49,6 +51,36 @@ public class GatewayConfig {
                                         .setKeyResolver(keyResolver))
                                 .addRequestHeader("X-Gateway-Request", "true"))
                         .uri("lb://user-service")
+                )
+                .route(r -> r
+                        .path("/api/{version}/product/**")
+                        .or()
+                        .path("/api/{version}/products/**")
+                        .filters(f -> f
+                                .circuitBreaker(config -> config
+                                        .setName("ecomServiceCircuitBreaker")
+                                        .setFallbackUri("forward:/fallback/products"))
+                                .rewritePath("/api/products/(?<segment>.*)", "/api/${version}/products/${segment}")
+                                .requestRateLimiter(config -> config
+                                        .setRateLimiter(redisRateLimiter)
+                                        .setKeyResolver(keyResolver))
+                                .addRequestHeader("X-Gateway-Request", "true"))
+                        .uri("lb://product-service")
+                )
+                .route(r -> r
+                        .path("/api/{version}/order/**")
+                        .or()
+                        .path("/api/{version}/orders/**")
+                        .filters(f -> f
+                                .circuitBreaker(config -> config
+                                        .setName("ecomServiceCircuitBreaker")
+                                        .setFallbackUri("forward:/fallback/orders"))
+                                .rewritePath("/api/orders/(?<segment>.*)", "/api/${version}/orders/${segment}")
+                                .requestRateLimiter(config -> config
+                                        .setRateLimiter(redisRateLimiter)
+                                        .setKeyResolver(keyResolver))
+                                .addRequestHeader("X-Gateway-Request", "true"))
+                        .uri("lb://order-service")
                 )
                 .build();
     }
