@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.NativeWebRequest;
 import reactor.core.publisher.Mono;
 
@@ -26,6 +27,7 @@ public class GlobalExceptionController {
      * @param request the current {@code NativeWebRequest} in which the exception occurred
      * @return a {@code ResponseEntity} containing error details with an HTTP status of 403 (Forbidden)
      */
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler({ForbiddenException.class})
     public Mono<ApiResponse<Object>> handleAccessDeniedException(
             ForbiddenException ex, NativeWebRequest request) {
@@ -51,6 +53,7 @@ public class GlobalExceptionController {
      * @return a {@link ResponseEntity} containing an {@code ErrorResponse} object with details about the error,
      *         including a "Data already exist" message and an HTTP status code of {@link HttpStatus#CONFLICT}
      */
+    @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler({DataAlreadyExistException.class})
     public Mono<ApiResponse<Object>> handleDataAlreadyExistsException(
             RuntimeException ex, NativeWebRequest request) {
@@ -75,6 +78,7 @@ public class GlobalExceptionController {
      * @param ex the {@code RuntimeException} instance that triggered this handler
      * @param request the {@code NativeWebRequest} related to the exception occurrence
      * @return a {@code ResponseEntity} containing an*/
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({BadRequestException.class})
     public Mono<ApiResponse<Object>> handleBadRequestException(
             RuntimeException ex, NativeWebRequest request) {
@@ -98,6 +102,7 @@ public class GlobalExceptionController {
      *
      * @param ex the exception thrown when an unauthorized access attempt is detected
      * @param request the web request during which the exception*/
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler({UnauthorizeException.class})
     public Mono<ApiResponse<Object>> handleAuthenticationException(
             RuntimeException ex, NativeWebRequest request) {
@@ -107,6 +112,24 @@ public class GlobalExceptionController {
                 .timestamp(Instant.now())
                 .detail(ex.getMessage())
                 .status(HttpStatus.UNAUTHORIZED)
+                .build();
+
+        return Mono.just(ApiResponse.builder()
+                .success(false)
+                .error(error)
+                .build());
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler({RuntimeException.class, Exception.class})
+    public Mono<ApiResponse<Object>> handleInternalServerErrorException(
+            RuntimeException ex, NativeWebRequest request) {
+        ErrorResponse error = ErrorResponse.builder()
+                .title("Internal server error")
+                .type(request.getContextPath())
+                .timestamp(Instant.now())
+                .detail(ex.getMessage())
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .build();
 
         return Mono.just(ApiResponse.builder()

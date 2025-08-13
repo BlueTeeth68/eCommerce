@@ -28,18 +28,17 @@ public class FallBackController {
         return Mono.just(response);
     }
 
-    @GetMapping("users")
-    public Mono<ApiResponse<Object>> userServiceFallback() {
+    @GetMapping("ecom")
+    public Mono<ApiResponse<Object>> ecomServiceFallBack() {
         ApiResponse<Object> response = ApiResponse.builder()
                 .success(false)
                 .error(ErrorResponse.builder()
                         .status(HttpStatus.SERVICE_UNAVAILABLE)
                         .title("Service unavailable")
-                        .detail("User Service is currently unavailable. Please try again later.")
+                        .detail("Ecom Service is currently unavailable. Please try again later.")
                         .timestamp(Instant.now())
                         .build())
                 .build();
         return Mono.just(response);
     }
-
 }

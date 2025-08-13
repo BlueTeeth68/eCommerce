@@ -37,7 +37,7 @@ resilience4j:
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
         waitDurationInOpenState: 5s
-        failureRateThreshold: 40
+        failureRateThreshold: 60
         slowCallRateThreshold: 40
         slowCallDurationThreshold: 1s
       userServiceCircuitBreaker:
@@ -47,7 +47,7 @@ resilience4j:
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
         waitDurationInOpenState: 5s
-        failureRateThreshold: 40
+        failureRateThreshold: 60
         slowCallRateThreshold: 40
         slowCallDurationThreshold: 1s
   timelimiter:
