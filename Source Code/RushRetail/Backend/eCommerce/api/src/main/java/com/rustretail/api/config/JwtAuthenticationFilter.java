@@ -1,5 +1,6 @@
 package com.rustretail.api.config;
 
+import com.rustretail.api.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.rustretail.api.controller;
+package com.rustretail.api.services;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

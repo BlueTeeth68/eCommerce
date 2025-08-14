@@ -1,4 +1,4 @@
-package com.rustretail.api.config;
+package com.rustretail.api.services;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

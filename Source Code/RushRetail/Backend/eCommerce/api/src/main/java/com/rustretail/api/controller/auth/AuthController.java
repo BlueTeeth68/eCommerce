@@ -1,6 +1,6 @@
 package com.rustretail.api.controller.auth;
 
-import com.rustretail.api.config.JwtService;
+import com.rustretail.api.services.JwtService;
 import com.rustretail.application.user.UserApplicationService;
 import entities.enums.Role;
 import io.swagger.v3.oas.annotations.Operation;
